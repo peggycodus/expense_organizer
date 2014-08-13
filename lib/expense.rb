@@ -12,14 +12,22 @@ class Expense
     end
 
     def self.all
-        
-        expenses = []
+    	expenses = []
+        results = DB.exec("SELECT * FROM expense")
+
+        results.each do |result|
+            expenses << Expense.new(result)
+        end
+        expenses
         
     end
 
-    def save
-    	DB = PG.connect({:dbname => 'expense_test'})
-        result = DB.exec("INSERT INTO expense (amount, description, date, company_id) VALUES (#{@amount},'#{@description}',  '#{@date}', '#{@company_id}') RETURNING id;")
+    def save	
+        result = DB.exec("INSERT INTO expense (amount, description, date, company_id) VALUES (#{@amount},'#{@description}','#{@date}','#{@company_id}') RETURNING id;")
         @id = result.first['id'].to_i
     end
+
+    def ==(another_expense)
+    self.name == another_expense.name 
+  	end
 end
