@@ -1,6 +1,6 @@
 require 'rspec'
 require 'pg'
-require 'Expense'
+require './lib/Expense'
 # require 'Company'
 # require 'Category'
 
