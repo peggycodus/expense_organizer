@@ -14,4 +14,11 @@ describe 'Expense' do
             expect(Expense.all).to eq []
         end
     end
+
+    it 'should return the description, amount, and date' do
+        expense = Expense.new({ 'amount' => 249.00, 'description' => 'office chair', 'date' => "04/05/15", 'company_id' => 2})
+        expense.description.should eq 'office chair'
+        expense.amount.should eq 249.00
+        expense.date.should eq "04/05/15"
+    end
 end
