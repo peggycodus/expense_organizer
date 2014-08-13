@@ -30,4 +30,9 @@ class Expense
   def delete
     DB.exec("DELETE FROM expense WHERE id = @id;")
   end
+
+  def self.total
+    sum = sum = DB.exec("SELECT sum(amount) FROM expense;")
+    sum.first['sum'].to_f
+  end
 end

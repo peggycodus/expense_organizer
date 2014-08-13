@@ -49,4 +49,14 @@ describe 'Expense' do
         end
     end
 
+  describe '.total' do
+        it 'returns the total of all expenses' do
+            test_expense1 = Expense.new({'amount' => 200.00, 'description' => 'office chair', 'date' => '2005-12-10', 'company_id' => 2})
+            test_expense1.save
+            test_expense2 = Expense.new({'amount' => 1049.00, 'description' => 'desk', 'date' => '2005-12-03', 'company_id' => 2})
+            test_expense2.save
+            Expense.total.should eq 1249.00
+        end
+    end
+
 end
