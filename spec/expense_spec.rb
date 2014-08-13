@@ -1,30 +1,43 @@
-require 'rspec'
-require 'expense'
+require 'spec_helper'
 
 describe 'Expense' do
 
-    it 'initializes an expense with an amount, a description, a company id and date' do
-        test_expense = Expense.new({ 'amount' => 249.00, 'description' => 'office chair', 'date' => "04/05/15", 'company_id' => 2})
-        expect(test_expense).to be_an_instance_of Expense
-    end
+  it 'initializes an expense with an amount, a description, a company id and date' do
+    test_expense = Expense.new({ 'amount' => 249.00, 'description' => 'office chair', 'date' => "2005-12-10", 'company_id' => 2})
+    expect(test_expense).to be_an_instance_of Expense
+  end
 
-    describe '.all' do
-        it 'should be empty at first' do
-            expense = Expense.new({ 'amount' => 249.00, 'description' => 'office chair', 'date' => "04/05/15", 'company_id' => 2})
-            expect(Expense.all).to eq []
-        end
+  describe '.all' do
+    it 'should be empty at first' do
+      test_expense = Expense.new({ 'amount' => 249.00, 'description' => 'office chair', 'date' => '2005-12-10', 'company_id' => 2})
+      expect(Expense.all).to eq []
     end
+  end
 
-    it 'should return the description, amount, and date' do
-        expense = Expense.new({ 'amount' => 249.00, 'description' => 'office chair', 'date' => "04/05/15", 'company_id' => 2})
-        expense.description.should eq 'office chair'
-        expense.amount.should eq 249.00
-        expect(expense.date).to eq "04/05/15"
-    end
+  it 'should return the description, amount, and date' do
+    test_expense = Expense.new({ 'amount' => 249.00, 'description' => 'office chair', 'date' => '2005-12-10', 'company_id' => 2})
+    expect(test_expense.description).to eq 'office chair'
+    expect(test_expense.amount).to eq 249.00
+    expect(test_expense.date).to eq "2005-12-10"
+  end
 
-    it 'should save the instance to the database' do
-        expense = Expense.new({ 'amount' => 249.00, 'description' => 'office chair', 'date' => "04/05/15", 'company_id' => 2})
-        expense.save
-        expect(Expense.all).to eq [expense]
+  describe '#save' do
+    it 'should save the expense to the database' do
+      test_expense = Expense.new({ 'amount' => 249.00, 'description' => 'office chair', 'date' => '2005-12-10', 'company_id' => 2})
+      test_expense.save
+      expect(Expense.all).to eq [test_expense]
     end
+  end
+
+  it 'sets its ID when you save it to the database' do
+    test_expense = Expense.new({ 'amount' => 249.00, 'description' => 'office chair', 'date' => '2005-12-10', 'company_id' => 2})
+    test_expense.save
+    expect(test_expense.id).to be_an_instance_of Fixnum
+  end
+
+  it 'should be the same if it has the same description and amount and date' do
+    test_expense1 = Expense.new({'amount' => 249.00, 'description' => 'office chair', 'date' => '2005-12-10', 'company_id' => 2})
+    test_expense2 = Expense.new({'amount' => 249.00, 'description' => 'office chair', 'date' => '2005-12-10', 'company_id' => 2})
+    test_expense1.should eq test_expense2
+  end
 end
