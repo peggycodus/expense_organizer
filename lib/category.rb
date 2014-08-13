@@ -9,14 +9,21 @@ class Category
   end
 
   def self.all
-
+    results = DB.exec("SELECT * FROM category")
     categories = []
-
+    results.each do |result|
+      categories << Category.new(result)
+    end
+    categories
   end
 
   def save
-  result = DB.exec("INSERT INTO category (name, budget) VALUES (#{@name},'#{@budget}') RETURNING id;")
+  result = DB.exec("INSERT INTO category (name, budget) VALUES ('#{@name}',#{@budget}) RETURNING id;")
   @id = result.first['id'].to_i
+  end
+
+  def ==(another)
+    self.name == another.name
   end
 
 end
