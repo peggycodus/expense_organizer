@@ -19,6 +19,12 @@ describe 'Expense' do
         expense = Expense.new({ 'amount' => 249.00, 'description' => 'office chair', 'date' => "04/05/15", 'company_id' => 2})
         expense.description.should eq 'office chair'
         expense.amount.should eq 249.00
-        expense.date.should eq "04/05/15"
+        expect(expense.date).to eq "04/05/15"
+    end
+
+    it 'should save the instance to the database' do
+        expense = Expense.new({ 'amount' => 249.00, 'description' => 'office chair', 'date' => "04/05/15", 'company_id' => 2})
+        expense.save
+        expect(Expense.all).to eq [expense]
     end
 end

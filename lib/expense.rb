@@ -1,5 +1,6 @@
 require 'pg'
 
+
 class Expense
     attr_reader :amount, :description, :date, :id, :company_id
     def initialize (attributes)
@@ -14,5 +15,11 @@ class Expense
         
         expenses = []
         
+    end
+
+    def save
+    	DB = PG.connect({:dbname => 'expense_test'})
+        result = DB.exec("INSERT INTO expense (amount, description, date, company_id) VALUES (#{@amount},'#{@description}',  '#{@date}', '#{@company_id}') RETURNING id;")
+        @id = result.first['id'].to_i
     end
 end
