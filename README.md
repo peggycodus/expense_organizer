@@ -1,7 +1,7 @@
 ***Expense Tracker
 *Author: Peggy Condon
 *Date: August 2014
-*Technology: Ruby, TDD, SQL
+*Technology: Ruby, TDD, Postgres SQL
 * Running this program: Type 'ruby expense_menu.rb ' in the terminal window
 
 **Features:
