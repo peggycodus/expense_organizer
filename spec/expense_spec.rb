@@ -23,7 +23,7 @@ describe 'Expense' do
 
   describe '#save' do
     it 'should save the expense to the database' do
-      test_expense = Expense.new({ 'amount' => 249.00, 'description' => 'office chair', 'date' => '2005-12-10', 'company_id' => 2})
+      test_expense = Expense.new({ 'amount' => 249.00, 'description' => 'office chair', 'date' => '2005-12-10 00:00:00', 'company_id' => 2})
       test_expense.save
       expect(Expense.all).to eq [test_expense]
     end

@@ -34,7 +34,6 @@ def main_menu
   else
     puts " Please choose a valid menu option"
     main_menu
-
   end
 end
 
@@ -51,7 +50,7 @@ def category_menu
   puts "Type 'x' - to exit the program"
   puts "___________________________________\n"
 
-case gets.chomp.downcase
+  case gets.chomp.downcase
   when 'c'
     add_category
   when 'all'
@@ -71,34 +70,69 @@ case gets.chomp.downcase
     exit
   else
     puts " Please choose a valid menu option"
-end
-
-def add_expense
-  system("clear")
-  puts "_____________________________\n\n"
-  print "Please enter the expense amount: "
-  print "$"
-  amount = gets.chomp.to_f
-  puts "Enter the expense description: "
-  description = gets.chomp
-  puts "Enter the expense date(YYYY-MM-DD): "
-  date = gets.chomp
-  Expense.new({ 'description' => description, 'amount' => amount, 'date' => date })
-  puts "\n\n#{description} was added to your expenses."
-  puts "\n_____________________________\n"
-  main_menu
-end
-
-def view_expenses
-  system("clear")
-  puts "_____________________________\n\n"
-  expense = Expense.all
-  puts " Here are all of your expenses:\n\n"
-  expense.each_with_index do |expense, index|
-    puts "#{index+1}) #{expense.description}, purchased for #{expense.amount}, on #{expense.date}"
   end
-  puts "\n_____________________________\n"
-  main_menu
-end
 
-main_menu
+  def add_expense
+    system("clear")
+    puts "_____________________________\n\n"
+    print "Please enter the expense amount: "
+    print "$"
+    amount = gets.chomp.to_f
+    puts "Enter the expense description: "
+    description = gets.chomp
+    puts "Enter the expense date(YYYY-MM-DD): "
+    date = gets.chomp
+    date =  Time.strptime(date, "$Y-%m-%d")
+    puts "#{date}"
+    Expense.new({ 'description' => description, 'amount' => amount, 'date' => date })
+    puts "\n\n#{description} was added to your expenses."
+    puts "\n_____________________________\n"
+    main_menu
+  end
+
+  def view_expenses
+    system("clear")
+    puts "_____________________________\n\n"
+    expense = Expense.all
+    puts " Here are all of your expenses:\n\n"
+    expense.each_with_index do |expense, index|
+      puts "#{index+1}) #{expense.description}, Amount: #{expense.amount}, Date: #{expense.date}"
+    end
+    puts "\n_____________________________\n"
+    main_menu
+  end
+
+  def add_category
+    system("clear")
+    puts "_____________________________\n\n"
+    print "Please enter the category name: "
+    print "$"
+    name = gets.chomp
+    puts "Would you like to add a budget for the category? (Y/N) "
+    response = gets.chomp.downcase
+    if response == ('y' || 'yes')
+      puts "Enter the budget amount for this category: "
+      budget = 0
+      budget = gets.chomp
+      Category.new({ 'name' => name, 'monthly budget' => budget })
+      puts "\n\n#{name} was added to your categories, with a budget of #{budget}."
+      puts "Would you like to add another category? (Y/N)"
+      response2 = gets.chomp.downcase
+      if response2 == ('y' || 'yes')
+        add_category
+      else
+        main_menu
+      end
+    end
+  end
+
+  def view_categories
+    puts "\n_____________________________\n"
+    Category.all.each do |category|
+      puts "\n  Category: #{category.name}   Budget: #{category.budget}"
+    end
+  end
+
+  main_menu
+
+end
