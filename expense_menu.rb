@@ -13,6 +13,7 @@ def main_menu
   puts "Type 'e' - to edit an expense"
   puts "Type 'd' - to delete an expense"
   puts "Type 's' - to search for a specific expense"
+  puts "Type cat - to go to the categories and budget menu"
   puts "Type 'x' - to exit the program"
   puts "___________________________________\n"
 
@@ -35,6 +36,41 @@ def main_menu
     main_menu
 
   end
+end
+
+def category_menu
+  system("clear")
+  puts "___________________________________\n\n"
+  puts "Type 'c' - to add a category"
+  puts "Type 'all' - to view all categories and their budgets"
+  puts "Type 'e' - to edit a category or budget"
+  puts "Type 'd' - to delete a category"
+  puts "Type 'time' - to show all category spending by time period"
+  puts "Type 'b' - to show monthly category spending vs budget"
+  puts "Type 'm' - to return to the main menu"
+  puts "Type 'x' - to exit the program"
+  puts "___________________________________\n"
+
+case gets.chomp.downcase
+  when 'c'
+    add_category
+  when 'all'
+    view_categories
+  when 'e'
+    edit_category
+  when 'd'
+    delete_category
+  when 'time'
+    show_time_spend
+  when 'b'
+    show_actual_budget
+  when 'm'
+    main_menu
+  when 'x'
+    puts "Leaving the expense program."
+    exit
+  else
+    puts " Please choose a valid menu option"
 end
 
 def add_expense
