@@ -29,6 +29,13 @@ describe '#save' do
     test_category1.should eq test_category2
   end
 
+  it 'should return the name and budget' do
+    test_category = Category.new({ 'name' => 'furniture', 'budget' => 10000, 'id' => 8})
+    expect(test_category.name).to eq 'furniture'
+    expect(test_category.budget).to eq 10000.00
+
+  end
+
   describe 'delete' do
         it 'deletes an instance from the database' do
             test_category = Category.new({ 'name' => 'furniture', 'budget' => 10000, 'id' => 8})

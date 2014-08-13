@@ -42,21 +42,35 @@ describe 'Expense' do
   end
 
   describe 'delete' do
-        it 'deletes an instance from the database' do
-            test_expense = Expense.new({'amount' => 249.00, 'description' => 'office chair', 'date' => '2005-12-10', 'company_id' => 2})
-            test_expense.delete
-            expect(Expense.all).to eq []
-        end
+    it 'deletes an instance from the database' do
+      test_expense = Expense.new({'amount' => 249.00, 'description' => 'office chair', 'date' => '2005-12-10', 'company_id' => 2})
+      test_expense.delete
+      expect(Expense.all).to eq []
     end
+  end
 
   describe '.total' do
-        it 'returns the total of all expenses' do
-            test_expense1 = Expense.new({'amount' => 200.00, 'description' => 'office chair', 'date' => '2005-12-10', 'company_id' => 2})
-            test_expense1.save
-            test_expense2 = Expense.new({'amount' => 1049.00, 'description' => 'desk', 'date' => '2005-12-03', 'company_id' => 2})
-            test_expense2.save
-            Expense.total.should eq 1249.00
-        end
+    it 'returns the total of all expenses' do
+      test_expense1 = Expense.new({'amount' => 200.00, 'description' => 'office chair', 'date' => '2005-12-10', 'company_id' => 2})
+      test_expense1.save
+      test_expense2 = Expense.new({'amount' => 1049.00, 'description' => 'desk', 'date' => '2005-12-03', 'company_id' => 2})
+      test_expense2.save
+      expect(Expense.total).to eq 1249.00
     end
+    end
+
+    it 'lets you assign multiple categories to an expense' do
+    test_expense = Expense.new({ 'amount' => 249.00, 'description' => 'office chair', 'date' => '2005-12-10', 'company_id' => 2, 'id' =>10})
+    test_expense.save
+    test_category = Category.new({ 'name' => 'furniture', 'budget' => 10000, 'id' => 20})
+    test_category.save
+    test_category = Category.new({ 'name' => 'durable items', 'budget' => 15000, 'id' => 22})
+    test_category.save
+    test_expense_category.new({ 'expense_id' => 10, 'category_id' => 20})
+    test_expense_category.save
+    test_expense_category1.new({ 'expense_id' => 10, 'category_id' => 22})
+    test_expense_category.save
+    expect(test_expense_category.all).to eq [test_expense_category, test_expense_category1]
+  end
 
 end
