@@ -9,4 +9,10 @@ class Expense
         @id = attributes['id'].to_i
         @company_id = attributes['company_id']
     end
+
+    def self.all
+        
+        expenses = []
+        
+    end
 end
