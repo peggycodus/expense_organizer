@@ -40,4 +40,13 @@ describe 'Expense' do
     test_expense2 = Expense.new({'amount' => 249.00, 'description' => 'office chair', 'date' => '2005-12-10', 'company_id' => 2})
     test_expense1.should eq test_expense2
   end
+
+  describe 'delete' do
+        it 'deletes an instance from the database' do
+            test_expense = Expense.new({'amount' => 249.00, 'description' => 'office chair', 'date' => '2005-12-10', 'company_id' => 2})
+            test_expense.delete
+            expect(Expense.all).to eq []
+        end
+    end
+
 end
