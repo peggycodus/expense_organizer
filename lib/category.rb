@@ -26,4 +26,8 @@ class Category
     self.name == another.name
   end
 
+  def delete
+    DB.exec("DELETE FROM category WHERE id = @id;")
+  end
+
 end

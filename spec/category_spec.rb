@@ -24,8 +24,16 @@ describe '#save' do
   end
 
   it 'should be the same if it has the same name' do
-    test_category1 = Category.new({'amount' => 249.00, 'description' => 'office chair', 'date' => '2005-12-10', 'company_id' => 2})
-    test_category2 = Category.new({'amount' => 249.00, 'description' => 'office chair', 'date' => '2005-12-10', 'company_id' => 2})
+    test_category1 = Category.new({ 'name' => 'furniture', 'budget' => 10000, 'id' => 8})
+    test_category2 = Category.new({ 'name' => 'furniture', 'budget' => 10000, 'id' => 8})
     test_category1.should eq test_category2
   end
+
+  describe 'delete' do
+        it 'deletes an instance from the database' do
+            test_category = Category.new({ 'name' => 'furniture', 'budget' => 10000, 'id' => 8})
+            test_category.delete
+            expect(Category.all).to eq []
+        end
+    end
 end
