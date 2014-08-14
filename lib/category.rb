@@ -30,4 +30,9 @@ class Category
     DB.exec("DELETE FROM category WHERE id = @id;")
   end
 
+  def self.get_category_id(name)
+    results = DB.exec("SELECT * FROM category WHERE id = #{category_name};")
+    results.first['id'].to_i
+  end
+
 end

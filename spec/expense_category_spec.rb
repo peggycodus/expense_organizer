@@ -9,4 +9,11 @@ describe 'Expense_category' do
     test_expense_category = Expense_category.new({ 'expense_id' => 3, 'category_id' => 4})
     expect(test_expense_category).to be_an_instance_of Expense_category
   end
+
+  describe '.all' do
+    it 'should be empty at first' do
+      test_expense_category = Expense_category.new({ 'expense_id' => 3, 'category_id' => 4})
+      expect(Expense_category.all).to eq []
+    end
+  end
 end

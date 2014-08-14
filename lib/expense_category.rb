@@ -8,4 +8,11 @@ class Expense_category
       @id = attributes['id'].to_i
   end
 
+  def self.all
+
+    expense_categories = []
+
+  end
+
+
 end

@@ -1,5 +1,8 @@
 class Expense
-  attr_reader :amount, :description, :date, :id, :company_id
+
+  attr_accessor :description, :amount, :date, :company_id
+  attr_reader :id
+
   def initialize (attributes)
     @amount = attributes['amount'].to_f
     @description = attributes['description']
