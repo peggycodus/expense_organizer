@@ -24,4 +24,20 @@ describe 'Expense_category' do
     expect(Expense_category.all).to eq [test_expense_category1]
     end
   end
+
+  describe 'add_multiple_categories' do
+  it 'allows assignment of multiple categories to an expense' do
+    test_expense = Expense.new({ 'amount' => 249.00, 'description' => 'office chair', 'date' => '2005-12-10', 'company_id' => 2, 'id' =>10})
+    test_expense.save
+    test_category1 = Category.new({ 'name' => 'furniture', 'budget' => 10000, 'id' => 20})
+    test_category1.save
+    test_category2 = Category.new({ 'name' => 'durable items', 'budget' => 15000, 'id' => 22})
+    test_category2.save
+    test_expense_category1 = Expense_category.new({ 'expense_id' => 10, 'category_id' => 20})
+    test_expense_category1.save
+    test_expense_category2 = Expense_category.new({ 'expense_id' => 10, 'category_id' => 22})
+    test_expense_category2.save
+    expect(Expense_category.all).to eq [test_expense_category1, test_expense_category2]
+    end
+  end
 end

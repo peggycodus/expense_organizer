@@ -4,7 +4,7 @@ class Category
 
   def initialize(attributes)
       @name = attributes['name']
-      @budget = attributes['budget']
+      @budget = attributes['budget'].to_f
       @id = attributes['id'].to_i
   end
 
@@ -18,7 +18,7 @@ class Category
   end
 
   def save
-  result = DB.exec("INSERT INTO category (name, budget) VALUES ('#{@name}',#{@budget}) RETURNING id;")
+  result = DB.exec("INSERT INTO category (name, budget) VALUES ('#{@name}', #{@budget} ) RETURNING id;")
   @id = result.first['id'].to_i
   end
 

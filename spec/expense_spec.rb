@@ -59,22 +59,11 @@ describe 'Expense' do
     end
   end
 
-    it 'lets you assign multiple categories to an expense' do
-    test_expense = Expense.new({ 'amount' => 249.00, 'description' => 'office chair', 'date' => '2005-12-10', 'company_id' => 2, 'id' =>10})
-    test_expense.save
-    test_category = Category.new({ 'name' => 'furniture', 'budget' => 10000, 'id' => 20})
-    test_category.save
-    test_category = Category.new({ 'name' => 'durable items', 'budget' => 15000, 'id' => 22})
-    test_category.save
-    test_expense_category.new({ 'expense_id' => 10, 'category_id' => 20})
-    test_expense_category.save
-    test_expense_category1.new({ 'expense_id' => 10, 'category_id' => 22})
-    test_expense_category1.save
-    expect(test_expense_category.all).to eq [test_expense_category, test_expense_category1]
-    end
+
 
     describe '.category_total' do
-      it 'gets the total expense percentage of all purchases of that category' do
+      it 'gets the total expense of all purchases in a given category' do
+
         test_expense1 = Expense.new({'amount' => 600.00,'description' => 'office chair', 'date' => '2005-12-10', 'id' => 2})
         test_expense1.save
         test_expense_category1 = Expense_category.new({'expense_id' => 2, 'category_id' => 22})
@@ -83,7 +72,7 @@ describe 'Expense' do
         test_expense2.save
         test_expense_category2 = Expense_category.new({'expense_id' => 3, 'category_id' => 22})
         test_expense_category2.save
-        expect(Expense.category_total).to eq 1650.00
+        expect(Expense.category_total(22)).to eq 1650.00
       end
     end
 end

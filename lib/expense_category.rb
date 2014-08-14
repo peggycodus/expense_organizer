@@ -27,4 +27,6 @@ class Expense_category
     self.expense_id == another.expense_id && self.category_id == another.category_id
   end
 
+
+
 end

@@ -8,7 +8,7 @@ class Expense
     @description = attributes['description']
     @date = attributes['date']
     @id = attributes['id'].to_i
-    @company_id = attributes['company_id']
+    @company_id = attributes['company_id'].to_i
   end
 
   def self.all
@@ -21,7 +21,7 @@ class Expense
   end
 
   def save
-    result = DB.exec("INSERT INTO expense (amount, description, date, company_id) VALUES (#{@amount},'#{@description}','#{@date}', '#{@company_id}') RETURNING id;")
+    result = DB.exec("INSERT INTO expense (amount, description, date, company_id) VALUES (#{@amount},'#{@description}','#{@date}', #{@company_id}) RETURNING id;")
     @id = result.first['id'].to_i
 
   end
@@ -38,4 +38,17 @@ class Expense
     sum = sum = DB.exec("SELECT sum(amount) FROM expense;")
     sum.first['sum'].to_f
   end
+
+def self.category_total(category)
+    results = DB.exec("SELECT sum(amount) FROM expense
+                      JOIN expense_category on (expense.id = expense_category.expense_id)
+                      JOIN category on (expense_category.category_id = category.id)
+                      WHERE expense_category.category_id= category.id;")
+    results.first['sum'].to_f
+  end
+# select animals.* from
+# trainers join lessons on (trainers.id = lessons.trainer_id)
+#          join animals on (lessons.animal_id = animals.id)
+# where trainers.id = 1;
+
 end
