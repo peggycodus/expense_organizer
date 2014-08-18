@@ -1,4 +1,4 @@
-class Expense_category
+class Category_expense
   attr_reader  :id
   attr_accessor :category_id, :expense_id
 
@@ -9,17 +9,16 @@ class Expense_category
   end
 
   def self.all
-
     expense_categories = []
-    results = DB.exec("SELECT * FROM expense_category")
+    results = DB.exec("SELECT * FROM category_expense")
     results.each do |result|
-      expense_categories << Expense_category.new(result)
+      expense_categories << Category_expense.new(result)
     end
     expense_categories
   end
 
   def save
-   result = DB.exec("INSERT INTO expense_category (expense_id, category_id) VALUES (#{@expense_id}, #{@category_id}) RETURNING id;")
+   result = DB.exec("INSERT INTO category_expense (expense_id, category_id) VALUES (#{@expense_id}, #{@category_id}) RETURNING id;")
     @id = result.first['id'].to_i
   end
 

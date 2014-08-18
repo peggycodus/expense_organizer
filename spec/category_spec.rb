@@ -39,7 +39,7 @@ describe '#save' do
   describe 'delete' do
         it 'deletes an instance from the database' do
             test_category = Category.new({ 'name' => 'furniture', 'budget' => 10000, 'id' => 8})
-            test_category.delete
+            test_category.delete(8)
             expect(Category.all).to eq []
         end
     end

@@ -9,7 +9,7 @@ class Category
   end
 
   def self.all
-    results = DB.exec("SELECT * FROM category")
+    results = DB.exec("SELECT * FROM categories")
     categories = []
     results.each do |result|
       categories << Category.new(result)
@@ -18,7 +18,7 @@ class Category
   end
 
   def save
-  result = DB.exec("INSERT INTO category (name, budget) VALUES ('#{@name}', #{@budget} ) RETURNING id;")
+  result = DB.exec("INSERT INTO categories (name, budget) VALUES ('#{@name}', #{@budget} ) RETURNING id;")
   @id = result.first['id'].to_i
   end
 
@@ -26,13 +26,14 @@ class Category
     self.name == another.name
   end
 
-  def delete
-    DB.exec("DELETE FROM category WHERE id = @id;")
+  def delete(category_id)
+    DB.exec("DELETE FROM categories WHERE id = #{category_id};")
   end
 
-  def self.get_category_id(name)
-    results = DB.exec("SELECT * FROM category WHERE id = #{category_name};")
+  def self.get_id(category_name)
+    results = DB.exec("SELECT id FROM categories WHERE name = '#{category_name}';")
     results.first['id'].to_i
   end
+
 
 end

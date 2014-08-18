@@ -23,7 +23,7 @@ describe 'Expense' do
 
   describe '#save' do
     it 'should save the expense to the database' do
-      test_expense = Expense.new({ 'amount' => 249.00, 'description' => 'office chair', 'date' => '2005-12-10 00:00:00', 'company_id' => 2})
+      test_expense = Expense.new({ 'amount' => 249.00, 'description' => 'office chair', 'date' => '2005-12-10', 'company_id' => 2})
       test_expense.save
       expect(Expense.all).to eq [test_expense]
     end
@@ -41,14 +41,6 @@ describe 'Expense' do
     test_expense1.should eq test_expense2
   end
 
-  describe 'delete' do
-    it 'deletes an instance from the database' do
-      test_expense = Expense.new({'amount' => 249.00, 'description' => 'office chair', 'date' => '2005-12-10', 'company_id' => 2})
-      test_expense.delete
-      expect(Expense.all).to eq []
-    end
-  end
-
   describe '.total' do
     it 'returns the total of all expenses' do
       test_expense1 = Expense.new({'amount' => 200.00, 'description' => 'office chair', 'date' => '2005-12-10', 'company_id' => 2})
@@ -59,18 +51,16 @@ describe 'Expense' do
     end
   end
 
-
-
     describe '.category_total' do
       it 'gets the total expense of all purchases in a given category' do
 
         test_expense1 = Expense.new({'amount' => 600.00,'description' => 'office chair', 'date' => '2005-12-10', 'id' => 2})
         test_expense1.save
-        test_expense_category1 = Expense_category.new({'expense_id' => 2, 'category_id' => 22})
+        test_expense_category1 = Category_expense.new({'expense_id' => 2, 'category_id' => 22})
         test_expense_category1.save
         test_expense2 = Expense.new({'amount' => 1050.00,'description' => 'desk', 'date' => '2005-12-03', 'id' => 3})
         test_expense2.save
-        test_expense_category2 = Expense_category.new({'expense_id' => 3, 'category_id' => 22})
+        test_expense_category2 = Category_expense.new({'expense_id' => 3, 'category_id' => 22})
         test_expense_category2.save
         expect(Expense.category_total(22)).to eq 1650.00
       end
